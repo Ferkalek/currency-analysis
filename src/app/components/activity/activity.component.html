@@ -1,0 +1,20 @@
+<p-tag
+  *ngIf="currencyAction === strongSeverity.strongBuy"
+  severity="success"
+  [value]="currencyAction"
+/>
+
+<p-tag
+  *ngIf="currencyAction === strongSeverity.strongSell"
+  severity="danger"
+  [value]="currencyAction"
+/>
+
+<p-tag
+  *ngIf="
+    currencyAction !== strongSeverity.strongBuy &&
+    currencyAction !== strongSeverity.strongSell
+  "
+  severity="secondary"
+  [value]="currencyAction"
+/>

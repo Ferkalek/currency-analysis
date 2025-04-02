@@ -1,2 +1,7 @@
 <app-toolbar />
-<app-currency-item />
+<ng-container *ngFor="let currency of currencies; let last = last">
+  <app-currency-item
+    [class]="last ? 'block' : 'block mb-2'"
+    [currency]="currency"
+  />
+</ng-container>

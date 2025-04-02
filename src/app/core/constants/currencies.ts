@@ -1,4 +1,4 @@
-import { CurrencyItem } from "../models";
+import { CurrencyItem } from '../models';
 
 export const currencyList: CurrencyItem[] = [
   { label: 'EUR/USD', value: 1 },
@@ -16,4 +16,4 @@ export const currencyList: CurrencyItem[] = [
   // { label: 'USD/JPY', value: 3 },
   { label: 'EUR/CAD', value: 16 },
   // { label: 'USD/CNH', value: 961728 },
-  ];
+];

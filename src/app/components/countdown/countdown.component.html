@@ -1,0 +1,29 @@
+<div class="countdown-circle" *ngIf="shouldDisplay">
+  <svg width="36" height="36" viewBox="0 0 36 36">
+    <!-- Background circle -->
+    <circle
+      cx="18"
+      cy="18"
+      [attr.r]="radius"
+      fill="transparent"
+      stroke="#e6e6e6"
+      stroke-width="2.5"
+    ></circle>
+    <!-- Progress circle -->
+    <circle
+      cx="18"
+      cy="18"
+      [attr.r]="radius"
+      fill="transparent"
+      stroke="#4caf50"
+      stroke-width="2.5"
+      [attr.stroke-dasharray]="circumference"
+      [attr.stroke-dashoffset]="strokeDashoffset"
+      transform="rotate(-90, 18, 18)"
+    ></circle>
+  </svg>
+  <!-- Text inside the circle -->
+  <div class="countdown-text">
+    {{ secondsElapsed }}
+  </div>
+</div>

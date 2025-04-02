@@ -1,1 +1,65 @@
-<p>currency-item works!</p>
+<div
+  class="relative border-round shadow-1 p-2"
+  [ngClass]="{
+    'border-green-500 border-2': (severity$ | async) === strongSeverity.strongBuy,
+    'border-red-500 border-2': (severity$ | async) === strongSeverity.strongSell,
+    'border-gray-300 border-1': !(severity$ | async),
+  }"
+>
+  <div class="flex gap-3 align-items-center justify-content-between">
+    <p class="text-lg font-semibold">{{ currency.label }}</p>
+
+    <div
+      class="flex flex-grow-1 gap-2 align-items-center justify-content-between"
+    >
+      <div
+        *ngIf="currencyData$ | async as currencyData"
+        class="flex flex-grow-1 gap-2 align-items-center"
+      >
+        <div class="flex flex-grow-1 gap-2">
+          <app-activity [currencyAction]="currencyData.technical" />
+          <app-activity [currencyAction]="currencyData.summary" />
+          <app-activity [currencyAction]="currencyData.averages" />
+        </div>
+
+        <div class="flex gap-3 align-items-center">
+          <app-countdown
+            *ngIf="severity$ | async"
+            [dateString]="currencyData.lastUpdateTime"
+          />
+          <div>{{ currencyData.lastUpdateTime.substr(11) }}</div>
+        </div>
+      </div>
+
+      <div class="flex gap-2 align-items-center">
+        <button
+          pButton
+          type="button"
+          class="p-button-outlined p-button-secondary p-2"
+          [icon]="(isCopied$ | async) ? 'pi pi-check' : 'pi pi-copy'"
+          aria-label="Copy currency"
+          (click)="onCopy(currency.label)"
+        ></button>
+
+        <button
+          pButton
+          type="button"
+          class="p-button-outlined p-button-secondary p-2"
+          icon="pi pi-refresh"
+          [disabled]="isChecked"
+          (click)="fetchCurrency()"
+        ></button>
+
+        <p-checkbox [(ngModel)]="isChecked" [binary]="true" inputId="binary" />
+      </div>
+    </div>
+  </div>
+
+  <p *ngIf="tradeRisks$ | async as tradeRisks" class="text-sm mt-2">
+    {{ tradeRisks }}
+  </p>
+
+  <div *ngIf="isLoading$ | async" class="loader-wrapper">
+    <p-progressSpinner ariaLabel="loading" />
+  </div>
+</div>

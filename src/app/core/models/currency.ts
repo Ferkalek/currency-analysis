@@ -1,20 +1,15 @@
 import { TradingData } from "./trading-data";
 
 export type CurrencyItem = {
-    value: number;
-    label: string;
+  value: number;
+  label: string;
 };
 
 export interface CurrencyData {
-    basic: TradingData,
-    currency: string;
-    technical: string;
-    summary: string;
-    averages: string;
-    lastUpdateTime: string;
-}
-  
-export interface CurrencyTableProps {
-    data: CurrencyData[];
-    loading: boolean;
+  basic: TradingData;
+  currency: string;
+  technical: string;
+  summary: string;
+  averages: string;
+  lastUpdateTime: string;
 }
