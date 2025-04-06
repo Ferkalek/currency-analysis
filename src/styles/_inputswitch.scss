@@ -1,0 +1,15 @@
+.p-inputswitch {
+  width: 2rem;
+  height: 1rem;
+
+  .p-inputswitch-slider:before {
+    width: 0.75rem;
+    height: 0.75rem;
+    left: 0.25rem;
+    margin-top: -0.4rem;
+  }
+
+  &.p-inputswitch-checked .p-inputswitch-slider:before {
+    transform: translateX(0.8rem);
+  }
+}

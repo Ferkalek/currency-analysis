@@ -1,0 +1,53 @@
+<div class="relative overflow-hidden border-round min-height-60">
+  <div
+    *ngIf="currencyData$ | async as currencyData"
+    class="flex flex-grow-1 gap-2 align-self-baseline p-2 border-round border-1"
+    [ngClass]="{
+      'border-green-500': currencyData.isStrongBuy,
+      'border-red-500': currencyData.isStrongSell,
+      'border-gray-300':
+        !currencyData.isStrongBuy && !currencyData.isStrongSell,
+    }"
+  >
+    <div class="flex-grow-1">
+      <div class="flex flex-grow-1 gap-2 align-items-center">
+        <p>{{ timeFrame }}:</p>
+        <div class="flex flex-grow-1 gap-2">
+          <app-activity [currencyAction]="currencyData.technical" />
+          <app-activity [currencyAction]="currencyData.summary" />
+          <app-activity [currencyAction]="currencyData.averages" />
+        </div>
+
+        <div>{{ currencyData.lastUpdateTime.substr(11) }}</div>
+      </div>
+
+      <p *ngIf="tradeRisks$ | async as tradeRisks" class="text-sm mt-2">
+        {{ tradeRisks }}
+      </p>
+    </div>
+
+    <div class="flex-shrink-0 align-self-baseline">
+      <app-countdown
+        *ngIf="currencyData.isStrongBuy || currencyData.isStrongSell"
+        [dateString]="currencyData.lastUpdateTime"
+      />
+    </div>
+
+    <div class="flex-shrink-0 align-self-baseline">
+      <button
+        pButton
+        type="button"
+        class="p-button-outlined p-button-secondary p-2"
+        icon="pi pi-refresh"
+        [disabled]="!isAllowFetchData"
+        (click)="fetchCurrency()"
+      ></button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading$ | async" class="loader-wrapper">
+    <p-progressSpinner ariaLabel="loading" />
+  </div>
+
+  <div *ngIf="!isAllowFetchData" class="not-allow-fetch-data"></div>
+</div>

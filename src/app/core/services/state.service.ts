@@ -5,6 +5,5 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class StateService {
-  timeFrame$ = new BehaviorSubject<string>('1m');
-  bulckRefresh$ = new Subject<void>();
+  bulkRefresh$ = new Subject<void>();
 }

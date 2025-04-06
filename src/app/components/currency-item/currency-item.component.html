@@ -1,65 +1,37 @@
-<div
-  class="relative border-round shadow-1 p-2"
-  [ngClass]="{
-    'border-green-500 border-2': (severity$ | async) === strongSeverity.strongBuy,
-    'border-red-500 border-2': (severity$ | async) === strongSeverity.strongSell,
-    'border-gray-300 border-1': !(severity$ | async),
-  }"
->
-  <div class="flex gap-3 align-items-center justify-content-between">
-    <p class="text-lg font-semibold">{{ currency.label }}</p>
+<div class="flex gap-3 align-items-center justify-content-between border-round shadow-1 p-2 border-gray-300 border-1">
+  <div>
+    <div class="mb-2">
+      <button
+        pButton
+        type="button"
+        class="w-full p-button-outlined p-button-secondary p-2"
+        [icon]="(isCopied$ | async) ? 'pi pi-check' : 'pi pi-copy'"
+        iconPos="right"
+        [label]="currency.label"
+        aria-label="Copy currency"
+        (click)="onCopy(currency.label)"
+      ></button>
+    </div>
 
-    <div
-      class="flex flex-grow-1 gap-2 align-items-center justify-content-between"
-    >
-      <div
-        *ngIf="currencyData$ | async as currencyData"
-        class="flex flex-grow-1 gap-2 align-items-center"
-      >
-        <div class="flex flex-grow-1 gap-2">
-          <app-activity [currencyAction]="currencyData.technical" />
-          <app-activity [currencyAction]="currencyData.summary" />
-          <app-activity [currencyAction]="currencyData.averages" />
-        </div>
-
-        <div class="flex gap-3 align-items-center">
-          <app-countdown
-            *ngIf="severity$ | async"
-            [dateString]="currencyData.lastUpdateTime"
-          />
-          <div>{{ currencyData.lastUpdateTime.substr(11) }}</div>
-        </div>
+    <div class="flex align-items-center gap-3">
+      <div class="flex align-items-center gap-2">
+        <label for="reload-1m">1M</label>
+        <p-inputSwitch [(ngModel)]="isChecked_1m" inputId="reload-5m" ariaLabel="Reload 1M" />
       </div>
-
-      <div class="flex gap-2 align-items-center">
-        <button
-          pButton
-          type="button"
-          class="p-button-outlined p-button-secondary p-2"
-          [icon]="(isCopied$ | async) ? 'pi pi-check' : 'pi pi-copy'"
-          aria-label="Copy currency"
-          (click)="onCopy(currency.label)"
-        ></button>
-
-        <button
-          pButton
-          type="button"
-          class="p-button-outlined p-button-secondary p-2"
-          icon="pi pi-refresh"
-          [disabled]="isChecked"
-          (click)="fetchCurrency()"
-        ></button>
-
-        <p-checkbox [(ngModel)]="isChecked" [binary]="true" inputId="binary" />
+  
+      <div class="flex align-items-center gap-2">
+        <label for="reload-5m">5M</label>
+        <p-inputSwitch [(ngModel)]="isChecked_5m" inputId="reload-5m" ariaLabel="Reload 5M" />
       </div>
     </div>
   </div>
 
-  <p *ngIf="tradeRisks$ | async as tradeRisks" class="text-sm mt-2">
-    {{ tradeRisks }}
-  </p>
-
-  <div *ngIf="isLoading$ | async" class="loader-wrapper">
-    <p-progressSpinner ariaLabel="loading" />
+  <div class="align-self-baseline flex-grow-1 grid">
+    <div class="col-12 lg:col-6">
+      <app-currency-details [currency]="currency" [isAllowFetchData]="isChecked_1m" />
+    </div>
+    <div class="col-12 lg:col-6 lg:py-2 py-0">
+      <app-currency-details [currency]="currency" [isAllowFetchData]="isChecked_5m" [timeFrame]="'5m'" />
+    </div>
   </div>
 </div>

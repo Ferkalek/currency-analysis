@@ -1,0 +1,34 @@
+:host {
+  ::ng-deep {
+    .p-progress-spinner {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}
+
+.min-height-60 {
+  min-height: 52px;
+}
+
+.basic-absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.loader-wrapper {
+  @extend .basic-absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.not-allow-fetch-data {
+  @extend .basic-absolute;
+  background: rgba(255, 255, 255, 0.3);
+}

@@ -1,5 +1,27 @@
-<app-toolbar />
-<ng-container *ngFor="let currency of currencies; let last = last">
+<div
+  class="flex justify-content-between align-items-center flex-wrap gap-3 mb-3"
+>
+  <div class="w-15rem">
+    <p-multiSelect
+      styleClass="w-full"
+      [options]="currencyOptions"
+      [(ngModel)]="selectedCurrencies"
+      optionLabel="label"
+      placeholder="Select currency"
+    />
+  </div>
+
+  <button
+    pButton
+    type="button"
+    icon="pi pi-refresh"
+    label="Bulk Update"
+    [disabled]="!selectedCurrencies?.length"
+    (click)="onBulkUpdate()"
+  ></button>
+</div>
+
+<ng-container *ngFor="let currency of selectedCurrencies; let last = last">
   <app-currency-item
     [class]="last ? 'block' : 'block mb-2'"
     [currency]="currency"

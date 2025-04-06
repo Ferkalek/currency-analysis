@@ -1,9 +1,9 @@
-import { TradingData } from "./trading-data";
+import { TradingData } from './trading-data';
 
-export type CurrencyItem = {
-  value: number;
+export interface CurrencyItem {
   label: string;
-};
+  code: number;
+}
 
 export interface CurrencyData {
   basic: TradingData;
@@ -12,4 +12,6 @@ export interface CurrencyData {
   summary: string;
   averages: string;
   lastUpdateTime: string;
+  isStrongBuy: boolean;
+  isStrongSell: boolean;
 }
